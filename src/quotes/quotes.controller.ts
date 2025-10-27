@@ -1,18 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Req } from '@nestjs/common';
 import { QuotesService } from './quotes.service';
-import type { Quote } from './types/quotes.model';
+import type { RawBodyRequest } from '@nestjs/common';
 
 @Controller('quotes')
 export class QuotesController {
   constructor(private readonly quotesService: QuotesService) {}
 
   @Get()
-  getAll(): Quote[] {
+  getAll() {
     return this.quotesService.findAll();
   }
 
-  @Get('random')
-  getRandom(): Quote {
-    return this.quotesService.getRandom();
+  @Post()
+  addQuote(@Req() req: RawBodyRequest<Request>) {
+    return this.quotesService.createQuote(req.body);
   }
 }
