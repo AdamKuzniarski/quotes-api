@@ -1,6 +1,15 @@
-import { Controller, Get, Post, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+} from '@nestjs/common';
 import { QuotesService } from './quotes.service';
-import type { RawBodyRequest } from '@nestjs/common';
+import type { Request } from '@nestjs/common';
+import type { Quote as QuoteType, quoteId } from './types/quotes.model';
 
 @Controller('quotes')
 export class QuotesController {
@@ -11,8 +20,23 @@ export class QuotesController {
     return this.quotesService.findAll();
   }
 
+  @Get(':id')
+  getOne(@Param('id') id: quoteId) {
+    return this.quotesService.findOne(id);
+  }
+
   @Post()
-  addQuote(@Req() req: RawBodyRequest<Request>) {
-    return this.quotesService.createQuote(req.body);
+  addQuote(@Body() quoteData: QuoteType) {
+    return this.quotesService.createQuote(quoteData);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: quoteId, @Body() quoteData: QuoteType) {
+    return this.quotesService.update(id, quoteData);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.quotesService.remove(+id);
   }
 }

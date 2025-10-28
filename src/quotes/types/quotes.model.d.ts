@@ -1,5 +1,10 @@
+export type quoteId = number;
+
 export interface Quote {
-  id: string;
   quote: string;
-  author: string;
+  author?: string;
+}
+
+export interface QuoteData extends Quote {
+  id: quoteId;
 }
