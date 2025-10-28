@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   ParseIntPipe,
@@ -15,7 +14,6 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Role } from './types/role.enum';
-import { UpdateQuoteDto } from 'src/quotes/dto/update-quote-dto';
 import { User } from './entities/user.entity';
 
 @Controller('user')
