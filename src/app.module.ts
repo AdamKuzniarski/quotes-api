@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { QuotesModule } from './quotes/quotes.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Quote } from './quotes/entity/quotes.entity';
+import { User } from './user/entities/user.entity';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -12,7 +14,7 @@ import { Quote } from './quotes/entity/quotes.entity';
       type: 'sqlite', // <--- Specify your database type here
       database: 'database.sqlite', // <--- Path to your DB file (for SQLite) or database name
 
-      entities: [Quote], // <--- **IMPORTANT:** This array will hold your Entity classes (e.g., [User, Product])
+      entities: [Quote, User], // <--- **IMPORTANT:** This array will hold your Entity classes (e.g., [User, Product])
       //     You can also use a glob pattern like ['dist/**/*.entity{.ts,.js}']
       //     but explicitly listing them is often clearer for smaller projects.
 
@@ -23,6 +25,7 @@ import { Quote } from './quotes/entity/quotes.entity';
 
       logging: false, // Set to 'all' or true to see SQL queries in the console (useful for debugging)
     }),
+    UserModule,
     // Other modules will be imported here (e.g., UserModule)
   ],
   controllers: [AppController],
