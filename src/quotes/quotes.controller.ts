@@ -8,8 +8,10 @@ import {
   Put,
 } from '@nestjs/common';
 import { QuotesService } from './quotes.service';
-import type { Request } from '@nestjs/common';
+
 import type { Quote as QuoteType, quoteId } from './types/quotes.model';
+import { CreateQuoteDto } from './dto/create-quote-dto';
+import { UpdateQuoteDto } from './dto/update-quote-dto';
 
 @Controller('quotes')
 export class QuotesController {
@@ -26,13 +28,16 @@ export class QuotesController {
   }
 
   @Post()
-  addQuote(@Body() quoteData: QuoteType) {
-    return this.quotesService.createQuote(quoteData);
+  addQuote(@Body() createQuoteDto: CreateQuoteDto) {
+    return this.quotesService.createQuote(createQuoteDto);
   }
 
   @Put(':id')
-  update(@Param('id') id: quoteId, @Body() quoteData: QuoteType) {
-    return this.quotesService.update(id, quoteData);
+  update(
+    @Param('id') id: quoteId,
+    @Body() updateQuoteDto: UpdateQuoteDto,
+  ): Promise<QuoteType | null> {
+    return this.quotesService.update(id, updateQuoteDto);
   }
 
   @Delete(':id')

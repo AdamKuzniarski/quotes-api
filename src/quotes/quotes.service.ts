@@ -7,6 +7,7 @@ import type {
   QuoteData,
   quoteId,
 } from './types/quotes.model';
+import { UpdateQuoteDto } from './dto/update-quote-dto';
 
 @Injectable()
 export class QuotesService {
@@ -29,7 +30,10 @@ export class QuotesService {
     return this.quoteRepository.save(newQuote);
   }
 
-  async update(id: quoteId, quoteData: QuoteType): Promise<QuoteData | null> {
+  async update(
+    id: quoteId,
+    quoteData: UpdateQuoteDto,
+  ): Promise<QuoteData | null> {
     console.log(id, quoteData);
     await this.quoteRepository.update(id, quoteData);
 
