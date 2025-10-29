@@ -7,7 +7,6 @@ import {
   Delete,
   ParseIntPipe,
   Query,
-  ParseEnumPipe,
   Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -26,9 +25,7 @@ export class UserController {
   }
 
   @Get()
-  findAll(
-    @Query('role', new ParseEnumPipe(Role, { optional: true })) role?: Role,
-  ) {
+  findAll(@Query('role') role?: Role) {
     return this.userService.findAll(role);
   }
 
