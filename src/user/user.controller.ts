@@ -8,24 +8,29 @@ import {
   ParseIntPipe,
   Query,
   Put,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Role } from './types/role.enum';
 import { User } from './entities/user.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Public } from 'src/common/decorators/public.decorator';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Public()
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
   @Get()
-  findAll(@Query('role') role?: Role) {
+  findAll(@Request() req: any, @Query('role') role?: Role) {
     return this.userService.findAll(role);
   }
 

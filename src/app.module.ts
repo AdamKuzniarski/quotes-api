@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Quote } from './quotes/entity/quotes.entity';
 import { User } from './user/entities/user.entity';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { UserModule } from './user/user.module';
       logging: false, // Set to 'all' or true to see SQL queries in the console (useful for debugging)
     }),
     UserModule,
+    AuthModule,
     // Other modules will be imported here (e.g., UserModule)
   ],
   controllers: [AppController],

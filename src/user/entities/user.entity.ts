@@ -7,6 +7,8 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  username: string;
   @Column({ type: 'text' })
   email: string;
 

@@ -14,18 +14,22 @@ export class UserService {
 
   async create(dto: CreateUserDto) {
     const user = this.userRepo.create(dto);
-    return this.userRepo.save(user);
+    return await this.userRepo.save(user);
   }
 
-  findAll(role?: Role) {
+  async findAll(role?: Role) {
     if (role) {
-      return this.userRepo.find({ where: { role } });
+      return await this.userRepo.find({ where: { role } });
     }
-    return this.userRepo.find();
+    return await this.userRepo.find();
   }
 
-  findOne(id: number) {
-    return this.userRepo.findOne({ where: { id } });
+  async findOne(id: number) {
+    return await this.userRepo.findOne({ where: { id } });
+  }
+
+  async findByUsername(username: string) {
+    return await this.userRepo.findOne({ where: { username } });
   }
 
   async update(id: number, dto: UpdateUserDto) {
